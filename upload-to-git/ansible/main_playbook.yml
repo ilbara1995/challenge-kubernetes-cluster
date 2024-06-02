@@ -1,0 +1,21 @@
+---
+- name: Vm conf
+  import_playbook: /vagrant/ansible/tasks/vm-conf.yml
+
+- name: Install Docker
+  import_playbook: /vagrant/ansible/tasks/docker-install.yml
+
+- name: Install Go
+  import_playbook: /vagrant/ansible/tasks/go-install.yml
+
+- name: Terraform install
+  import_playbook: /vagrant/ansible/tasks/terraform-install.yml
+
+- name: Create k8s cluster
+  import_playbook: /vagrant/ansible/tasks/create-k8s-cluster.yml
+
+- name: Install kubectl #always chack that kubectl_version=kube-version+-1
+  import_playbook: /vagrant/ansible/tasks/install-kubectl.yml
+
+- name: Helm install
+  import_playbook: /vagrant/ansible/tasks/helm-install.yml

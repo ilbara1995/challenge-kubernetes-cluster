@@ -1,0 +1,26 @@
+---
+- name: create k8s cluster
+  hosts: controller
+  gather_facts: yes
+  become: true
+  tasks:
+    - name: Esegui Terraform Init
+      ansible.builtin.command:
+        cmd: terraform init
+        chdir: /vagrant/terraform
+      register: result
+      failed_when: "'Error' in result.stderr"
+
+    - name: Esegui Terraform Plan
+      ansible.builtin.command:
+        cmd: terraform plan
+        chdir: /vagrant/terraform
+      register: result
+      failed_when: "'Error' in result.stderr"
+
+    - name: Esegui Terraform Apply
+      ansible.builtin.command:
+        cmd: terraform apply -auto-approve
+        chdir: /vagrant/terraform
+      register: result
+      failed_when: "'Error' in result.stderr"

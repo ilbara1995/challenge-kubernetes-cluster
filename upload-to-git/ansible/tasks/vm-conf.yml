@@ -1,0 +1,19 @@
+---
+- name: Disable swap memory
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Disabilita la memoria di swap
+      command: swapoff -a
+
+    - name: Backup del file fstab
+      copy:
+        src: /etc/fstab
+        dest: /etc/fstab.bak
+        remote_src: yes
+
+    - name: Rimuove le voci di swap da /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        regexp: '.*swap.*'
+        state: absent

@@ -1,0 +1,23 @@
+---
+- name: install terraform on controller vm
+  hosts: controller
+  become: yes
+  tasks:
+    - name: Installa dipendenze necessarie
+      apt:
+        name: ['unzip', 'wget']
+        state: present
+
+    - name: Scarica Terraform
+      get_url:
+        url: https://releases.hashicorp.com/terraform/0.14.7/terraform_0.14.7_linux_amd64.zip
+        dest: /tmp/terraform.zip
+
+    - name: Estrai Terraform
+      unarchive:
+        src: /tmp/terraform.zip
+        dest: /usr/local/bin/
+        remote_src: yes
+
+    - name: Verifica l'installazione di Terraform
+      command: terraform --version

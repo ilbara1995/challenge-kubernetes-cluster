@@ -1,0 +1,19 @@
+# .github/workflows/terraform-lint.yml
+name: Terraform Lint
+on:
+  push:
+    branches: ["master"]
+jobs:
+  lint:
+    name: Terraform Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: '0.14.7' # sostituisci con la tua versione di Terraform
+      - name: Terraform Init
+        run: terraform init /terraform/*/
+      - name: Terraform Validate
+        run: terraform validate /terraform/*/

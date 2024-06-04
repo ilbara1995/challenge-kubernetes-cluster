@@ -1,5 +1,5 @@
 # .github/workflows/terraform-lint.yml
-name: Terraform Lint
+name: terraform-lint
 on:
   push:
     branches: ["master"]

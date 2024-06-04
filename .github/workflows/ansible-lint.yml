@@ -1,0 +1,19 @@
+# .github/workflows/ansible-lint.yml
+name: ansible-lint
+on:
+  push:
+    branches: ["master"]
+jobs:
+  build:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install ansible-lint
+        run: pip install ansible-lint
+      - name: Run ansible-lint
+        run: ansible-lint /ansible/*.yml /ansible/tasks/*.yml

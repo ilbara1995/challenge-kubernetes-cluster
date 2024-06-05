@@ -1,11 +1,11 @@
 terraform {
   required_providers {
     rke = {
-      source = "rancher/rke"
+      source  = "rancher/rke"
       version = "1.5.0"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "2.30.0"
     }
   }
@@ -35,12 +35,12 @@ resource "rke_cluster" "cluster" {
 
 }
 
- resource "local_file" "kube_cluster_yaml" {
-   filename = "/home/vagrant/.kube/kube_config_cluster.yml"
-   content  = rke_cluster.cluster.kube_config_yaml
- }
+resource "local_file" "kube_cluster_yaml" {
+  filename = "/home/vagrant/.kube/kube_config_cluster.yml"
+  content  = rke_cluster.cluster.kube_config_yaml
+}
 
- provider "kubernetes" {
+provider "kubernetes" {
 
   host     = rke_cluster.cluster.api_server_url
   username = rke_cluster.cluster.kube_admin_user

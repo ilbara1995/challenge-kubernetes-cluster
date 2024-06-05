@@ -27,3 +27,4 @@
           path: ~/.bashrc
           line: 'export PATH=$PATH:/usr/local/bin'
         when: helm_install_result.rc == 0
+

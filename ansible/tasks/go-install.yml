@@ -3,7 +3,7 @@
   hosts: kubernetes
   become: true
   tasks:
-    - block:
+    block:
       - name: Download Go tarball
         get_url:
           url: https://dl.google.com/go/go1.14.linux-amd64.tar.gz

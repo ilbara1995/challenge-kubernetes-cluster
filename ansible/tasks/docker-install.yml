@@ -3,7 +3,7 @@
   hosts: kubernetes
   become: true
   tasks:
-    - block:
+    block:
       - name: Update apt package index
         apt:
           update_cache: true

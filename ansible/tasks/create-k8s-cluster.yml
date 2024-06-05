@@ -4,7 +4,7 @@
   gather_facts: true
   become: true
   tasks:
-    - block:
+    block:
       - name: Esegui Terraform Init
         ansible.builtin.command:
           cmd: terraform init

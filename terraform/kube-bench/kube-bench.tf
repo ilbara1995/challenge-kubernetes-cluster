@@ -2,7 +2,7 @@ provider "kubernetes" {
   config_path = "/home/vagrant/.kube/kube_config_cluster.yml"
 }
 
-
+#test github action terraform lint
 resource "null_resource" "delay" {
   provisioner "local-exec" {
     command = "sleep 30"

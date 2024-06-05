@@ -16,6 +16,7 @@ terraform {
 resource "rke_cluster" "cluster" {
 
   enable_cri_dockerd = true
+  #test github action terraform lint
   #default kubernetes_version v1.23.4-rancher1-1
 
   nodes {

@@ -2,18 +2,12 @@
 name: ansible-lint
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
 jobs:
   build:
-    name: Ansible Lint
+    name: Ansible Lint # Naming the build is important to use it as a status check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '2.7.17'
-      - name: Install ansible-lint
-        run: pip install ansible-lint
       - name: Run ansible-lint
-        run: ansible-lint /ansible/*.yml /ansible/tasks/*.yml
+        uses: ansible/ansible-lint@main # or version tag instead of 'main'

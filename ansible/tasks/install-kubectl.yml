@@ -4,7 +4,7 @@
   tasks:
     - name: Scarica kubectl
       get_url:
-        url: "https://storage.googleapis.com/kubernetes-release/release/v1.29.0/bin/linux/amd64/kubectl"
+        url: "https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl"
         dest: "/tmp/kubectl"
         mode: '0755'
 

@@ -16,12 +16,13 @@ terraform {
 resource "rke_cluster" "cluster" {
 
   enable_cri_dockerd = true
+  #default kubernetes_version v1.23.4-rancher1-1
 
   nodes {
     address = "172.17.177.23"
     user    = "vagrant"
     role    = ["controlplane", "etcd", "worker"]
-    ssh_key = file("/home/vagrant/.ssh/id_rsa")#path sulla macchina host
+    ssh_key = file("/home/vagrant/.ssh/id_rsa")
   }
 
   nodes {
@@ -29,21 +30,18 @@ resource "rke_cluster" "cluster" {
     user    = "vagrant"
     #role    = ["controlplane", "etcd","worker"]
     role    = ["worker"]
-    ssh_key = file("/home/vagrant/.ssh/id_rsa")#path sulla macchina host
+    ssh_key = file("/home/vagrant/.ssh/id_rsa")
   }
 
 }
-#volendo potrei passare il file kube config al provider kubernetes 
-#per far si che si conetta al cluster sena dover usare tutte le opzioni nel 
-#blocco provider kubernetes
+
  resource "local_file" "kube_cluster_yaml" {
    filename = "/home/vagrant/.kube/kube_config_cluster.yml"
    content  = rke_cluster.cluster.kube_config_yaml
  }
 
  provider "kubernetes" {
-  /*config_path = "~/.kube/config"
-  config_path = local_file.kube_cluster_yaml.filename*/
+
   host     = rke_cluster.cluster.api_server_url
   username = rke_cluster.cluster.kube_admin_user
 

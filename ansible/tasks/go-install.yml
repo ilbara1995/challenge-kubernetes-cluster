@@ -1,25 +1,25 @@
 ---
 - name: Install Go
   hosts: kubernetes
-  become: yes
+  become: true
   tasks:
+    - block:
+      - name: Download Go tarball
+        get_url:
+          url: https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+          dest: /tmp/go1.14.linux-amd64.tar.gz
 
-    - name: Download Go tarball
-      get_url:
-        url: https://dl.google.com/go/go1.14.linux-amd64.tar.gz
-        dest: /tmp/go1.14.linux-amd64.tar.gz
+      - name: Unarchive Go tarball
+        unarchive:
+          src: /tmp/go1.14.linux-amd64.tar.gz
+          dest: /usr/local
+          remote_src: true
 
-    - name: Unarchive Go tarball
-      unarchive:
-        src: /tmp/go1.14.linux-amd64.tar.gz
-        dest: /usr/local
-        remote_src: yes
-
-    - name: Set Go Paths
-      lineinfile:
-        path: /etc/profile
-        line: "{{ item }}"
-      with_items:
-        - 'export GOROOT=/usr/local/go'
-        - 'export GOPATH=$HOME/go'
-        - 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH'
+      - name: Set Go Paths
+        lineinfile:
+          path: /etc/profile
+          line: "{{ item }}"
+        with_items:
+          - 'export GOROOT=/usr/local/go'
+          - 'export GOPATH=$HOME/go'
+          - 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH'

@@ -1,8 +1,9 @@
 ---
 - name: install terraform on controller vm
   hosts: controller
-  become: yes
+  become: true
   tasks:
+    block:
     - name: Installa dipendenze necessarie
       apt:
         name: ['unzip', 'wget']
@@ -17,7 +18,7 @@
       unarchive:
         src: /tmp/terraform.zip
         dest: /usr/local/bin/
-        remote_src: yes
+        remote_src: true
 
     - name: Verifica l'installazione di Terraform
       command: terraform --version

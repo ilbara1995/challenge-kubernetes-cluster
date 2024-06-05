@@ -1,7 +1,8 @@
 ---
 - hosts: controller
-  become: yes
+  become: true
   tasks:
+    block:
     - name: Scarica kubectl
       get_url:
         url: "https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl"
@@ -52,4 +53,3 @@
     - name: Print KUBECONFIG
       debug:
         msg: "{{ result.stdout }}"
-

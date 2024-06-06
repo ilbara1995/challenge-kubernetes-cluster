@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.define "master" do |master|
+      master.vm.network "forwarded_port", guest: 80, host: 50080
       master.vm.network "private_network", ip: "172.17.177.23"
       master.vm.hostname = "master"
       master.vm.provision "shell", path: "script/enable-pwd-auth-ssh.sh"
@@ -58,7 +59,7 @@ Vagrant.configure("2") do |config|
     #echo #{password} | sudo -S su - vagrant -c 'bash /vagrant/enable-pubkey-auth.sh'
   #SHELL
   #end
-  
+  #master.vm.network "forwarded_port", guest: 80, host: 8080
 
 
   

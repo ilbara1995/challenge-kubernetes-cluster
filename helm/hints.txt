@@ -1,0 +1,15 @@
+##add repo 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+#update list of chart
+helm repo update
+
+##deploy wordpress
+helm install -f wordpress-config.yml mio-wordpress bitnami/wordpress --atomic
+
+##for others helm chart go to https://artifact.io/
+
+#to get access to wordpresso from your browser on windows modify  C:\Windows\System32\drivers\etc\hosts and add this in the file
+127.0.0.1   wordpress.local
+
+#from vagrantfile master 80 port is binded to 50080 host port

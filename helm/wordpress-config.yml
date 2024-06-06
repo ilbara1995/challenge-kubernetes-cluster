@@ -1,0 +1,26 @@
+wordpressBlogName: Il mio blog
+wordpressUsername: utente
+wordpressPassword: password
+wordpressEmail: utente@example.com
+wordpressFirstName: Nome
+wordpressLastName: Cognome
+
+mariadb:
+  enabled: true
+  db:
+    name: wordpress
+    user: wordpress
+    password: password
+  primary:
+    persistence:
+      enabled: false
+
+persistence:
+  enabled: false
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+
+service:
+  type: ClusterIP

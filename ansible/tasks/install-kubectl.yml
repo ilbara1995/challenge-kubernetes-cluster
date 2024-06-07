@@ -1,56 +1,56 @@
 ---
-- hosts: controller
+- name: install kubectl
+  hosts: controller
   become: true
   tasks:
-    block:
-      - name: Scarica kubectl
-        get_url:
-          url: "https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl"
-          dest: "/tmp/kubectl"
-          mode: '0755'
+    - block:
+        - name: Scarica kubectl
+          get_url:
+            url: "https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl"
+            dest: "/tmp/kubectl"
+            mode: '0755'
 
-      - name: Sposta kubectl in /usr/local/bin
-        command: mv /tmp/kubectl /usr/local/bin/kubectl
+        - name: Sposta kubectl in /usr/local/bin
+          command: mv /tmp/kubectl /usr/local/bin/kubectl
 
-      - name: Crea la cartella .kube
-        ansible.builtin.file:
-          path: /home/vagrant/.kube
-          state: directory
-          owner: vagrant
-          group: vagrant
-          mode: '0755'
+        - name: Crea la cartella .kube
+          ansible.builtin.file:
+            path: /home/vagrant/.kube
+            state: directory
+            owner: vagrant
+            group: vagrant
+            mode: '0755'
 
-      - name: Install bash-completion
-        apt:
-          name: bash-completion
-          state: present
+        - name: Install bash-completion
+          apt:
+            name: bash-completion
+            state: present
 
-      - name: Add KUBECONFIG export to .bashrc
-        lineinfile:
-          path: /home/vagrant/.bashrc
-          line: 'export KUBECONFIG=/home/vagrant/.kube/kube_config_cluster.yml'
+        - name: Add KUBECONFIG export to .bashrc
+          lineinfile:
+            path: /home/vagrant/.bashrc
+            line: 'export KUBECONFIG=/home/vagrant/.kube/kube_config_cluster.yml'
 
-      - name: Add kubectl alias to .bashrc
-        lineinfile:
-          path: /home/vagrant/.bashrc
-          line: 'alias k=kubectl'
+        - name: Add kubectl alias to .bashrc
+          lineinfile:
+            path: /home/vagrant/.bashrc
+            line: 'alias k=kubectl'
 
-      - name: Add kubectl completion to .bashrc
-        blockinfile:
-          path: /home/vagrant/.bashrc
-          block: |
-            source <(kubectl completion bash)
-            complete -o default -F __start_kubectl k
+        - name: Add kubectl completion to .bashrc
+          blockinfile:
+            path: /home/vagrant/.bashrc
+            block: |
+              source <(kubectl completion bash)
+              complete -o default -F __start_kubectl k
 
-      - name: Apply .bashrc changes
-        shell: |
-          . /home/vagrant/.bashrc
-          echo $KUBECONFIG
-        args:
-          executable: /bin/bash
-        register: result
+        - name: Apply .bashrc changes
+          shell: |
+            . /home/vagrant/.bashrc
+            echo $KUBECONFIG
+          args:
+            executable: /bin/bash
+          register: result
 
-      - name: Print KUBECONFIG
-        debug:
-          msg: "{{ result.stdout }}"
-
+        - name: Print KUBECONFIG
+          debug:
+            msg: "{{ result.stdout }}"

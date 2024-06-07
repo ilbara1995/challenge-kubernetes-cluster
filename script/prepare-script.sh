@@ -4,7 +4,7 @@ apt-get update
 
 apt-get install -y sshpass
 
-#imposto il file di default per configurazione ansible
+#imposto il file di default per configurazione ansible#
 echo 'export ANSIBLE_CONFIG=/vagrant/ansible/ansible.cfg' >> /home/vagrant/.bashrc
 
 #popolo file /etc/hosts

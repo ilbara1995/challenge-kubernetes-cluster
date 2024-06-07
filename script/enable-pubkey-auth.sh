@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Sostituisci 'password' con la tua password
+# Sostituisci 'password' con la tua password#
 export SSHPASS='vagrant'
 
 DIRECTORY="/home/vagrant/.ssh"

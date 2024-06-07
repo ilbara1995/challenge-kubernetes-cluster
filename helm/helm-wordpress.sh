@@ -4,7 +4,7 @@
 #launch this script to deploy non persistent wordpress
 #####################################################
 
-##add repo 
+##add repo #
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 #update list of chart

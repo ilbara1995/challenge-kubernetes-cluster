@@ -41,7 +41,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
 ```terraform
-terraform inithelm repo update
+helm repo update
 ```
 
 ```terraform
